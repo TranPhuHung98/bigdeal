@@ -1,7 +1,14 @@
+import 'package:big_deal/app_bloc.dart';
+import 'package:big_deal/app_state.dart';
 import 'package:big_deal/tabs/profile_tab/forgotpass_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
+
+  final AppBloc appBloc;
+
+  const ProfileScreen({Key key, this.appBloc}) : super(key: key);
+
   @override
   ProfileScreenState createState() {
     // TODO: implement createState
@@ -11,6 +18,17 @@ class ProfileScreen extends StatefulWidget {
 
 class ProfileScreenState extends State<ProfileScreen> {
   int counter = 1;
+
+  TextEditingController _userNameTextController;
+  TextEditingController _passwordTextController;
+
+  @override
+  void initState() {
+    super.initState();
+    // TODO: implement initState
+    _userNameTextController = new TextEditingController();
+    _passwordTextController = new TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +44,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   MaterialButton(
-                    height: 50.0, minWidth: 150.0,
+                    height: 50.0,
+                    minWidth: 150.0,
                     child: Text(
                       'Đăng nhập',
                       style: TextStyle(fontSize: 25.0),
@@ -35,7 +54,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {},
                   ),
                   MaterialButton(
-                    height: 50.0, minWidth: 150.0,
+                    height: 50.0,
+                    minWidth: 150.0,
                     child: Text('Đăng kí', style: TextStyle(fontSize: 25.0)),
                     color: Colors.white30,
                     onPressed: (() {
@@ -49,6 +69,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               Container(
                 padding: EdgeInsets.only(left: 5.0, right: 10.0, top: 30.0),
                 child: TextField(
+                  controller: _userNameTextController,
                   decoration: InputDecoration(
                       icon: Icon(Icons.perm_identity),
                       hintText: 'Email',
@@ -61,6 +82,7 @@ class ProfileScreenState extends State<ProfileScreen> {
               Container(
                 padding: EdgeInsets.only(left: 5.0, right: 10.0, top: 15.0),
                 child: TextField(
+                  controller: _passwordTextController,
                   obscureText: true,
                   decoration: InputDecoration(
                       icon: Icon(Icons.lock_outline),
@@ -77,7 +99,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                   child: Text('Quên mật khẩu?',
                       style: TextStyle(color: Colors.blue[700])),
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_)=> ForgotPassScreen() ));
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => ForgotPassScreen()));
                   },
                 ),
               ),
@@ -95,11 +118,16 @@ class ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyle(color: Colors.white, fontSize: 20.0),
                     ),
                     onPressed: () {
-                      Scaffold.of(context).showSnackBar(SnackBar(
+                      if(_userNameTextController.text.isNotEmpty&&
+                         _passwordTextController.text.isNotEmpty)
+                         widget.appBloc.updateUser(
+                           AppState(userName: _userNameTextController.text)
+                         );
+                      else Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text(
-                                '             Tài khoản hoặc mật khẩu không đúng'),
+                                'Tài khoản hoặc mật khẩu không đúng'),
                             backgroundColor: Colors.black54,
-                      ));
+                          ));
                       // Navigator.of(context).pushAndRemoveUntil(newRoute, predicate)
                     },
                   ),
@@ -145,7 +173,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                     }),
                   ),
                   MaterialButton(
-                    height: 50.0, minWidth: 150.0,
+                    height: 50.0,
+                    minWidth: 150.0,
                     child: Text('Đăng kí', style: TextStyle(fontSize: 25.0)),
                     color: Colors.green,
                     onPressed: (() {
@@ -208,8 +237,8 @@ class ProfileScreenState extends State<ProfileScreen> {
                       style: TextStyle(color: Colors.white, fontSize: 20.0),
                     ),
                     onPressed: () {
-                                 Scaffold.of(context).showSnackBar(
-                                     SnackBar(content: Text('Tài khoản hoặc mật khẩu không đúng')));
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text('Tài khoản hoặc mật khẩu không đúng')));
                     },
                   ),
                 ),

@@ -10,6 +10,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   shared_preferences: "^0.4.2"
   http: "^0.11.3+16"
+  rxdart: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +32,7 @@ flutter:
   assets:
    - images/logo_bd.png
    - images/flutter.jpg
+   - images/logo2.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

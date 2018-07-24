@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:big_deal/welcome/walkthrough.dart';
-import 'package:big_deal/main.dart';
 
 class WelcomeScreen extends StatefulWidget{
 
@@ -88,7 +87,7 @@ class WelcomeScreenState extends State<WelcomeScreen>{
                       fontWeight: FontWeight.bold,
                       fontSize: 16.0)),
                       onPressed: () =>
-                      lastPage ? null : Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>MyApp())),
+                      lastPage ? null : Navigator.of(context).pushReplacementNamed("/"),
                   ),
                   FlatButton(
                     child: Text(lastPage ? "GOT IT" : "NEXT",
@@ -96,7 +95,7 @@ class WelcomeScreenState extends State<WelcomeScreen>{
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                             fontSize: 16.0)),
-                    onPressed: () => lastPage ? Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_)=>MyApp())) : controller.nextPage(
+                    onPressed: () => lastPage ? Navigator.of(context).pushReplacementNamed("/") : controller.nextPage(
                         duration: Duration(milliseconds: 300),
                         curve: Curves.easeIn),
                   )
